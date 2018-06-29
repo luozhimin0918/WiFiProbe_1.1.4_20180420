@@ -62,4 +62,5 @@ dependencies {
     compile 'net.zetetic:android-database-sqlcipher:3.5.2'
     compile project(':LibMarsdaemon')
     compile files('libs/umsanypaysdk.jar')
+    implementation project(':FlycoTabLayout_Lib')
 }
