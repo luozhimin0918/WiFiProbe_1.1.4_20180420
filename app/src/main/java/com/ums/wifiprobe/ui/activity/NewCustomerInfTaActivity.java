@@ -34,7 +34,7 @@ public class NewCustomerInfTaActivity extends BaseActivity implements View.OnCli
     }
     @Override
     public int getLayoutId() {
-        return R.layout.activity_customer;
+        return R.layout.activity_customer_main;
     }
 
     @Override
