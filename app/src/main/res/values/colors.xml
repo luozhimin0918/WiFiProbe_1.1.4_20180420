@@ -13,7 +13,12 @@
     <color name="slidingColorSeleced">#23AFC5</color>
     <color name="slidingColorUnSeleced">#666666</color>
     <color name="button_primary_active">#085496</color>
+    <color name="smalNormalTextColor">#999999</color>
+    <color name="smalNumTextRed">#F04133</color>
+    <color name="smalNumTextGree">#159E4C</color>
+    <color name="smallTextGey">#B4B4B4</color>
 
+    <color name="normalTextColor">#666666</color>
     <color name="green_background">#65d5ac</color>
 
     <color name="button_primary">#0963B0</color>

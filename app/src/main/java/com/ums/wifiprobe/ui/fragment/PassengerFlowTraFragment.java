@@ -24,7 +24,7 @@ public class PassengerFlowTraFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null || mRootView.get() == null) {
-            view = inflater.inflate(R.layout.activity_setting, null);
+            view = inflater.inflate(R.layout.frament_pass_tra_main, null);
             mRootView = new WeakReference<View>(view);
             mContext=getContext();
             ButterKnife.bind(this,view);
