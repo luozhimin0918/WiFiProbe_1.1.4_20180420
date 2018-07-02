@@ -6,64 +6,47 @@
     android:background="#f4f4f4"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/head_part"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:paddingTop="20dp"
+        android:orientation="horizontal"
         android:background="@color/blue"
-        android:paddingTop="5dp"
-        android:gravity="center_vertical">
-
-        <ImageButton
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="60dp">
+        <ImageView
             android:id="@+id/head_setting"
-            android:layout_width="50dp"
-            android:layout_height="80dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="28dp"
             android:src="@mipmap/setting"
-            android:background="@null"
-            android:scaleType="center" />
-
+            android:scaleType="center"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/h5_app_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="28dp"
-            android:text="@string/app_name"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text=""
             android:textColor="#ffffff"
             android:textSize="40px" />
+
         <LinearLayout
             android:id="@+id/head_advanced"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
             android:orientation="horizontal">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical|right"
-                android:text="@string/advanced_function"
-                android:textColor="#ffffff"
+                android:text="@string/advanced_function_height"
+                android:textColor="#333333 "
                 android:background="@null"
                 android:clickable="false"
-                android:textSize="15sp" />
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="5dp"
-                android:clickable="false"
-                android:src="@mipmap/right"/>
-        </LinearLayout>
+                android:textSize="18sp" />
 
-    </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 
     <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/tab_main"

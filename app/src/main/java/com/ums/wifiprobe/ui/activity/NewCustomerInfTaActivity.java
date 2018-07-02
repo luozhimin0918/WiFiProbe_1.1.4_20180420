@@ -8,9 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
@@ -34,13 +33,13 @@ public class NewCustomerInfTaActivity extends BaseActivity implements View.OnCli
 
 
     @BindView(R.id.head_setting)
-    ImageButton headSetting;
+    ImageView headSetting;
     @BindView(R.id.h5_app_name)
     TextView h5AppName;
     @BindView(R.id.head_advanced)
     LinearLayout headAdvanced;
     @BindView(R.id.head_part)
-    RelativeLayout headPart;
+    LinearLayout headPart;
     @BindView(R.id.tab_main)
     SlidingTabLayout tabMain;
     @BindView(R.id.view_pager)
