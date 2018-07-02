@@ -48,26 +48,34 @@
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content">
+
     <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/tab_main"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
         tl:tl_divider_color="@color/white"
         tl:tl_divider_padding="0dp"
         tl:tl_divider_width="0px"
-        tl:tl_indicator_color="@color/white"
+        tl:tl_indicator_color="@color/slidingColorSeleced"
         tl:tl_indicator_height="3dp"
-        tl:tl_indicator_width="10dp"
-        tl:tl_indicator_corner_radius="5dp"
+        tl:tl_indicator_width="60dp"
+        tl:tl_indicator_corner_radius="1dp"
         tl:tl_indicator_width_equal_title="false"
         tl:tl_tab_padding="15dp"
         tl:tl_tab_space_equal="false"
-        tl:tl_textSelectColor="@color/white"
-        tl:tl_textUnselectColor="@color/white"
-        tl:tl_textsize="17sp"
+        tl:tl_textSelectColor="@color/slidingColorSeleced"
+        tl:tl_textUnselectColor="@color/slidingColorUnSeleced"
+        tl:tl_textsize="16sp"
         tl:tl_underline_color="@color/white"
         tl:tl_underline_height="0px" />
+
+    </LinearLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_weight="1"

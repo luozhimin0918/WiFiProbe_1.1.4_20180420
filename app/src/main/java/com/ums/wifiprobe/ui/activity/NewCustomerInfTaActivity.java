@@ -69,14 +69,11 @@ public class NewCustomerInfTaActivity extends BaseActivity implements View.OnCli
         //tab title List
         list_title=new ArrayList<String>();
         list_title.add("客流交易数据");
-        list_title.add("客流数据");
+        list_title.add("  客流数据  ");
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         tabMain.setViewPager(viewPager);
         tabMain.setOnTabSelectListener(this);
-        tabMain.showDot(0);
         viewPager.setCurrentItem(0);
-        tabMain.showMsg(1, 5);
-        tabMain.setMsgMargin(1, 12.0f, 10.0f);
 
 
     }

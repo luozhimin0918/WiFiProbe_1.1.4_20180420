@@ -10,6 +10,8 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 
+    <color name="slidingColorSeleced">#23AFC5</color>
+    <color name="slidingColorUnSeleced">#666666</color>
     <color name="button_primary_active">#085496</color>
 
     <color name="green_background">#65d5ac</color>
