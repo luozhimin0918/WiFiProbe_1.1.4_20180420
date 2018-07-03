@@ -95,10 +95,10 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
 
         } else {
             // create 4 DataSets
-            set1 = new BarDataSet(yVals1, "Company A");
-            set1.setColor(Color.rgb(104, 241, 175));
-            set2 = new BarDataSet(yVals2, "Company B");
-            set2.setColor(Color.rgb(164, 228, 251));
+            set1 = new BarDataSet(yVals1, "本周数据");
+            set1.setColor(Color.rgb(73, 169, 238));
+            set2 = new BarDataSet(yVals2, "上周数据");
+            set2.setColor(Color.rgb(152, 216, 125));
 
             BarData data = new BarData(set1, set2);
             data.setValueFormatter(new LargeValueFormatter());
@@ -110,6 +110,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
 
         // restrict the x-axis range
         chartBarMulp.getXAxis().setAxisMinimum(startYear);
+        chartBarMulp.getBarData().setDrawValues(false);//是dataSet的属性，设置是否在图上显示出当前点（柱状图）的值
 
         // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
         chartBarMulp.getXAxis().setAxisMaximum(startYear + chartBarMulp.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
@@ -172,12 +173,12 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         chartBarMulp.setOnChartValueSelectedListener(this);
         chartBarMulp.getDescription().setEnabled(false);
 
-//        chartBarMulp.setDrawBorders(true);
+        chartBarMulp.setDrawBorders(false);
 
         // scaling can now only be done on x- and y-axis separately
         chartBarMulp.setPinchZoom(false);
         chartBarMulp.setScaleEnabled(false);
-
+        chartBarMulp.setDragEnabled(true);
         chartBarMulp.setDrawBarShadow(false);
 
         chartBarMulp.setDrawGridBackground(false);
@@ -203,7 +204,8 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
                 return String.valueOf((int) value);
             }
         });
-
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawAxisLine(false);// 是否绘制轴线
         YAxis leftAxis = chartBarMulp.getAxisLeft();
         leftAxis.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "OpenSans-Light.ttf"));
         leftAxis.setValueFormatter(new LargeValueFormatter());
