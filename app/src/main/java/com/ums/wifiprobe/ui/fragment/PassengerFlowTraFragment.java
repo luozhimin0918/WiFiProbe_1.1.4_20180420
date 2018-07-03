@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -182,17 +183,21 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         chartBarMulp.setDrawBarShadow(false);
 
         chartBarMulp.setDrawGridBackground(false);
-
+         //设置动画效果
+        chartBarMulp.animateY(500, Easing.EasingOption.Linear);
+        chartBarMulp.animateX(500, Easing.EasingOption.Linear);
         Legend l = chartBarMulp.getLegend();
+        l.setForm(Legend.LegendForm.SQUARE);//图示 标签的形状。   正方形
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         l.setDrawInside(true);
         l.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "OpenSans-Light.ttf"));
-        l.setYOffset(0f);
-        l.setXOffset(10f);
-        l.setYEntrySpace(0f);
-        l.setTextSize(8f);
+        l.setYOffset(10f);
+        l.setXOffset(0f);
+        l.setYEntrySpace(20f);
+        l.setTextSize(10f);
+        l.setFormSize(12);
 
         XAxis xAxis = chartBarMulp.getXAxis();
         xAxis.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "OpenSans-Light.ttf"));
@@ -206,13 +211,15 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         });
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawAxisLine(false);// 是否绘制轴线
+        xAxis.setDrawGridLines(false);//设置竖状的线是否显示
+        xAxis.setAxisMinimum(0f);
         YAxis leftAxis = chartBarMulp.getAxisLeft();
         leftAxis.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "OpenSans-Light.ttf"));
         leftAxis.setValueFormatter(new LargeValueFormatter());
         leftAxis.setDrawGridLines(false);
         leftAxis.setSpaceTop(35f);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-
+        leftAxis.setDrawAxisLine(false);// 是否绘制轴线
         chartBarMulp.getAxisRight().setEnabled(false);
     }
 
