@@ -25,9 +25,11 @@ import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.ums.wifiprobe.R;
+import com.ums.wifiprobe.utils.BarChartManager;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,8 +56,9 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
             mRootView = new WeakReference<View>(view);
             mContext = getContext();
             ButterKnife.bind(this, view);
-            initChart();
-            initData();
+//            initChart();
+//            initData();
+            initTT();
         } else {
             ViewGroup parent = (ViewGroup) mRootView.get().getParent();
             if (parent != null) {
@@ -65,6 +68,44 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         unbinder = ButterKnife.bind(this, mRootView.get());
         return mRootView.get();
 
+    }
+
+    private void initTT() {
+        BarChartManager barChartManager2 = new BarChartManager(chartBarMulp,getContext());
+
+        //设置x轴的数据
+        List<String> xValues0 = new ArrayList<>();
+        xValues0.add("12-01");
+        xValues0.add("12-02");
+        xValues0.add("12-03");
+        xValues0.add("12-04");
+        xValues0.add("12-05");
+        xValues0.add("12-06");
+        xValues0.add("12-07");
+
+
+
+        //设置y轴的数据()
+        List<List<Float>> yValues = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            List<Float> yValue = new ArrayList<>();
+            for (int j = 0; j < 7; j++) {
+                yValue.add((float) (Math.random() * 8)+2);
+            }
+            yValues.add(yValue);
+        }
+
+
+
+        //线的名字集合
+        List<String> names = new ArrayList<>();
+        names.add("本周数据");
+        names.add("上周数据");
+//        List<Integer> colorList=new ArrayList<>();
+//        colorList.add(Color.rgb(73, 169, 238));
+//        colorList.add(Color.rgb(152, 216, 125));
+        //创建多条柱状的图表
+        barChartManager2.showBarChart(xValues0, yValues,names);
     }
 
     private void initData() {
