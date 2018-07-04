@@ -40,12 +40,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.NewCustomerInfTaActivity" android:exported="true"  android:launchMode="singleInstance" android:process=":process2">
+        <activity android:name=".ui.activity.RevisedTurnoverActivity" android:exported="true" android:process=":process2">
             <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.NewCustomerInfTaActivity" android:exported="true"  android:launchMode="singleInstance" android:process=":process2">
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <!--<data android:host="AuthActivity" android:scheme="com.ums.wifiprobe"/>-->
-            </intent-filter>
+                &lt;!&ndash;<data android:host="AuthActivity" android:scheme="com.ums.wifiprobe"/>&ndash;&gt;
+            </intent-filter>-->
 
         </activity>
         <activity android:name=".ui.activity.CustomerInfoActivity" android:exported="true"  android:launchMode="singleInstance" android:process=":process2">
