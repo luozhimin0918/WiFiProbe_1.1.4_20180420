@@ -4,8 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.ums.wifiprobe.R;
+import com.ums.wifiprobe.utils.DeviceUtil;
+
+import butterknife.BindView;
 
 
 /**
@@ -15,7 +20,8 @@ import com.ums.wifiprobe.R;
 public class RevisedTurnoverActivity extends BaseActivity implements View.OnClickListener {
 
 
-
+    @BindView(R.id.status_bar)
+    LinearLayout statusBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,6 +35,13 @@ public class RevisedTurnoverActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void initView() {
+        //设置状态栏高度
+        int  statusBarHeight =DeviceUtil.getStatusHeight(this);
+        LinearLayout.LayoutParams sp_params = new LinearLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        sp_params.height = statusBarHeight;
+        statusBar.setLayoutParams(sp_params);
 
 
     }

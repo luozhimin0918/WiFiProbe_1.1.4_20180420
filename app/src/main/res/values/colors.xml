@@ -18,6 +18,8 @@
     <color name="smalNumTextGree">#159E4C</color>
     <color name="smallTextGey">#B4B4B4</color>
     <color name="optionBgColor">#F6F6F6</color>
+    <color name="changLinercolor">#EEEEEE</color>
+    <color name="OptionBgColorTo">#F0F0F0</color>
 
     <color name="normalTextColor">#666666</color>
     <color name="green_background">#65d5ac</color>
