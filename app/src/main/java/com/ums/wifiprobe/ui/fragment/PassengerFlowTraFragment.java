@@ -1,6 +1,7 @@
 package com.ums.wifiprobe.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
@@ -25,6 +27,7 @@ import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.ums.wifiprobe.R;
+import com.ums.wifiprobe.ui.activity.RevisedTurnoverActivity;
 import com.ums.wifiprobe.utils.BarChartManager;
 
 import java.lang.ref.WeakReference;
@@ -33,6 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -43,11 +47,14 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     @BindView(R.id.chart_bar_mulp)
     BarChart chartBarMulp;
     Unbinder unbinder;
+    @BindView(R.id.chang_Tari_button)
+    Button changTariButton;
     private View view;
     private final static String[] weekDays = new String[]{"12-01", "12-02", "12-03", "12-04", "12-05", "12-06", "12-07"};
 
 
     Context mContext;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,7 +78,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     }
 
     private void initTT() {
-        BarChartManager barChartManager2 = new BarChartManager(chartBarMulp,getContext());
+        BarChartManager barChartManager2 = new BarChartManager(chartBarMulp, getContext());
 
         //设置x轴的数据
         List<String> xValues0 = new ArrayList<>();
@@ -84,17 +91,15 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         xValues0.add("12-07");
 
 
-
         //设置y轴的数据()
         List<List<Float>> yValues = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             List<Float> yValue = new ArrayList<>();
             for (int j = 0; j < 7; j++) {
-                yValue.add((float) (Math.random() * 8)+2);
+                yValue.add((float) (Math.random() * 8) + 2);
             }
             yValues.add(yValue);
         }
-
 
 
         //线的名字集合
@@ -105,11 +110,11 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
 //        colorList.add(Color.rgb(73, 169, 238));
 //        colorList.add(Color.rgb(152, 216, 125));
         //创建多条柱状的图表
-        barChartManager2.showBarChart(xValues0, yValues,names);
+        barChartManager2.showBarChart(xValues0, yValues, names);
     }
 
     private void initData() {
-        int groupCount =7;
+        int groupCount = 7;
         int startYear = 1980;
         int endYear = startYear + groupCount;
         float groupSpace = 0.08f;
@@ -118,7 +123,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
 
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
         ArrayList<BarEntry> yVals2 = new ArrayList<BarEntry>();
-        float randomMultiplier =6 * 10f;
+        float randomMultiplier = 6 * 10f;
         for (int i = startYear; i < endYear; i++) {
             yVals1.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
             yVals2.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
@@ -224,7 +229,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         chartBarMulp.setDrawBarShadow(false);
 
         chartBarMulp.setDrawGridBackground(false);
-         //设置动画效果
+        //设置动画效果
         chartBarMulp.animateY(500, Easing.EasingOption.Linear);
         chartBarMulp.animateX(500, Easing.EasingOption.Linear);
         Legend l = chartBarMulp.getLegend();
@@ -279,5 +284,15 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     @Override
     public void onNothingSelected() {
 
+    }
+
+    @OnClick(R.id.chang_Tari_button)
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.chang_Tari_button:
+                Intent intent = new Intent(getContext(), RevisedTurnoverActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }
