@@ -9,6 +9,7 @@
         <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
         <!-- <item name="android:windowTranslucentNavigation">true</item> -->
         <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
 
         <!--<item name="background">@color/main_bg</item>-->
     </style>
