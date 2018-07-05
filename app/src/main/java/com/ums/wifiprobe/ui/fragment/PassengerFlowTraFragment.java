@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
@@ -28,6 +30,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.ums.wifiprobe.R;
 import com.ums.wifiprobe.ui.activity.RevisedTurnoverActivity;
+import com.ums.wifiprobe.ui.customview.EasyDialog;
 import com.ums.wifiprobe.utils.BarChartManager;
 
 import java.lang.ref.WeakReference;
@@ -49,6 +52,10 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     Unbinder unbinder;
     @BindView(R.id.chang_Tari_button)
     Button changTariButton;
+    @BindView(R.id.easy_mess_ke_num)
+    LinearLayout easyMessKeNum;
+    @BindView(R.id.question_mark_Keliu_num)
+    ImageView question_mark_Keliu_num;
     private View view;
     private final static String[] weekDays = new String[]{"12-01", "12-02", "12-03", "12-04", "12-05", "12-06", "12-07"};
 
@@ -286,13 +293,27 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
 
     }
 
-    @OnClick(R.id.chang_Tari_button)
+    @OnClick({R.id.chang_Tari_button,R.id.easy_mess_ke_num})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.chang_Tari_button:
                 Intent intent = new Intent(getContext(), RevisedTurnoverActivity.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.activity_anim3, R.anim.activity_out1);
+                break;
+            case R.id.easy_mess_ke_num:
+                new EasyDialog(getContext())
+                        .setLayoutResourceId(R.layout.layout_tip_text)
+                        .setBackgroundColor(getContext().getResources().getColor(R.color.background_color_black))
+                        .setLocationByAttachedView(question_mark_Keliu_num)
+                        .setGravity(EasyDialog.GRAVITY_BOTTOM)
+                        .setAnimationAlphaShow(600, 0.0f, 1.0f)
+                        .setAnimationAlphaDismiss(600, 1.0f, 0.0f)
+                        .setTouchOutsideDismiss(true)
+                        .setMatchParent(false)
+                        .setMarginLeftAndRight(24, 24)
+                        .setOutsideColor(getContext().getResources().getColor(R.color.outside_color_trans))
+                        .show();
                 break;
         }
     }
