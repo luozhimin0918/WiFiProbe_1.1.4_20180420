@@ -292,6 +292,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
             case R.id.chang_Tari_button:
                 Intent intent = new Intent(getContext(), RevisedTurnoverActivity.class);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.activity_anim3, R.anim.activity_out1);
                 break;
         }
     }
