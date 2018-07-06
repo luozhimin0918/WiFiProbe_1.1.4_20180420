@@ -106,6 +106,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     }
 
     private void initChart() {
+        chartBarMulp.setOnChartValueSelectedListener(this);
         BarChartManager barChartManager2 = new BarChartManager(chartBarMulp, getContext());
 
         //设置x轴的数据
@@ -251,6 +252,16 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
+       /* if (e == null)
+            return;
+        // 设置x轴的LimitLine，index是从0开始的
+        LimitLine xLimitLine = new LimitLine(e.getX(), ""+e.getX());
+        xLimitLine.setLineColor(ColorTemplate.rgb("#000000"));
+        xLimitLine.setLineWidth(1f);
+        XAxis xAxis = chartBarMulp.getXAxis();
+        xAxis.removeAllLimitLines();
+        xAxis.addLimitLine(xLimitLine);*/
+
 
     }
 
