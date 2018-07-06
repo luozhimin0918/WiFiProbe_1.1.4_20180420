@@ -587,13 +587,89 @@
             android:layout_height="0.5dp"></LinearLayout>
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:background="@color/white"
             android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                   <RadioButton
+                       android:id="@+id/radioToday"
+                       android:text="今日"
+                       android:textSize="14sp"
+                       android:button="@null"
+                       android:textColor="@drawable/button_press_blue__select"
+                       android:layout_width="wrap_content"
+                       android:layout_height="match_parent" />
+                   <RadioButton
+                       android:id="@+id/radioWeek"
+                       android:layout_marginLeft="20dp"
+                       android:text="本周"
+                       android:textSize="14sp"
+                       android:button="@null"
+                       android:checked="true"
+                       android:textColor="@drawable/button_press_blue__select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                    <RadioButton
+                        android:id="@+id/radioMonth"
+                        android:layout_marginLeft="20dp"
+                        android:text="本月"
+                        android:textSize="14sp"
+                        android:button="@null"
+                        android:textColor="@drawable/button_press_blue__select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </RadioGroup>
+
+                <LinearLayout
+
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:background="#49A9EE"
+                        android:layout_width="7dp"
+                        android:layout_height="7dp" />
+                    <TextView
+                        android:textSize="11sp"
+                        android:text="本周数据"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/smalNormalTextColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginLeft="15dp"
+                        android:background="#98D87D"
+                        android:layout_width="7dp"
+                        android:layout_height="7dp" />
+                    <TextView
+                        android:textSize="11sp"
+                        android:text="上周数据"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/smalNormalTextColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </RelativeLayout>
           <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart_bar_mulp"
             android:layout_width="match_parent"
-              android:layout_margin="10dp"
+              android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:layout_marginBottom="20dp"
             android:layout_height="210dp"
             android:background="@color/white" />
         </LinearLayout>

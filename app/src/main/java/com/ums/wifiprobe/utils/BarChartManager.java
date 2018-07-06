@@ -65,6 +65,7 @@ public class BarChartManager {
 
         //折线图例 标签 设置
         Legend legend = mBarChart.getLegend();
+        legend.setEnabled(false);
         legend.setForm(Legend.LegendForm.SQUARE);//图示 标签的形状。   正方形
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
