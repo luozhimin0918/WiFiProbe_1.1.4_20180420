@@ -3,6 +3,8 @@ package com.ums.wifiprobe.ui.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.Entry;
@@ -83,7 +86,23 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
 
 
     private void initData() {
-
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                // 选中状态改变时被触发
+                switch (checkedId) {
+                    case R.id.radioToday:
+                        handler.sendEmptyMessage(0);
+                        break;
+                    case R.id.radioWeek:
+                        handler.sendEmptyMessage(1);
+                        break;
+                    case R.id.radioMonth:
+                        handler.sendEmptyMessage(2);
+                        break;
+                }
+            }
+        });
     }
 
     private void initChart() {
@@ -264,4 +283,24 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
                 break;
         }
     }
+
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    Toast.makeText(getContext(),"今日",Toast.LENGTH_SHORT).show();
+                    break;
+                case 1:
+                    Toast.makeText(getContext(),"本周",Toast.LENGTH_SHORT).show();
+                    break;
+                case 2:
+                    Toast.makeText(getContext(),"本月",Toast.LENGTH_SHORT).show();
+                    break;
+
+            }
+        }
+    };
 }
