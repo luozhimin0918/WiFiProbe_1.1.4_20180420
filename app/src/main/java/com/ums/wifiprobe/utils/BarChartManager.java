@@ -200,9 +200,9 @@ public class BarChartManager {
         }
         int amount = yValuesList.size();
 
-        float groupSpace = 0.12f; //柱状图组之间的间距
+        float groupSpace = 0.62f; //柱状图组之间的间距
         float barSpace = (float) ((1 - 0.12) / amount / 10); // x4 DataSet
-        float barWidth = (float) ((1 - 0.12) / amount / 10 * 9); // x4 DataSet
+        float barWidth = 0.15f; // x4 DataSet
 
         // (0.2 + 0.02) * 4 + 0.12 = 1.00 -> interval per "group"
         mBarChart.getXAxis().setLabelCount(xValues.size()-1, false);
