@@ -62,6 +62,9 @@ public class BarChartManager {
         mBarChart.animateX(1000, Easing.EasingOption.Linear);
         //图表的描述
         mBarChart.getDescription().setText("");
+        mBarChart.setScaleXEnabled(true);
+        mBarChart.setScaleYEnabled(false);
+
 
         //折线图例 标签 设置
         Legend legend = mBarChart.getLegend();

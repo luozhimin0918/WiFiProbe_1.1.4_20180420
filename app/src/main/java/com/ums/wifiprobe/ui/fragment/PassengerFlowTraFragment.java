@@ -18,9 +18,12 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.ums.wifiprobe.R;
 import com.ums.wifiprobe.ui.activity.RevisedTurnoverActivity;
 import com.ums.wifiprobe.ui.customview.EasyDialog;
@@ -112,11 +115,17 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         //设置x轴的数据
         List<String> xValues0 = new ArrayList<>();
         xValues0.add("12-01");
-        xValues0.add("12-02");
+        xValues0.add("");
         xValues0.add("12-03");
-        xValues0.add("12-04");
+        xValues0.add("");
         xValues0.add("12-05");
+        xValues0.add("");
+        xValues0.add("12-07");
+        xValues0.add("");
         xValues0.add("12-06");
+        xValues0.add("");
+        xValues0.add("12-05");
+        xValues0.add("");
         xValues0.add("12-07");
 
 
@@ -124,7 +133,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         List<List<Float>> yValues = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             List<Float> yValue = new ArrayList<>();
-            for (int j = 0; j < 7; j++) {
+            for (int j = 0; j < xValues0.size(); j++) {
                 yValue.add((float) (Math.random() * 8) + 2);
             }
             yValues.add(yValue);
@@ -252,15 +261,15 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
-       /* if (e == null)
+        if (e == null)
             return;
         // 设置x轴的LimitLine，index是从0开始的
-        LimitLine xLimitLine = new LimitLine(e.getX(), ""+e.getX());
+        LimitLine xLimitLine = new LimitLine(e.getX(), ""+(int)e.getX());
         xLimitLine.setLineColor(ColorTemplate.rgb("#000000"));
         xLimitLine.setLineWidth(1f);
         XAxis xAxis = chartBarMulp.getXAxis();
         xAxis.removeAllLimitLines();
-        xAxis.addLimitLine(xLimitLine);*/
+        xAxis.addLimitLine(xLimitLine);
 
 
     }
