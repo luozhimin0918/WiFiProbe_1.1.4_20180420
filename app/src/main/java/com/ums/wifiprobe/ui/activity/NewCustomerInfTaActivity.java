@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.ums.wifiprobe.R;
+import com.ums.wifiprobe.ui.customview.ControlScrollViewPager;
 import com.ums.wifiprobe.ui.fragment.PassengerFlowDataFragment;
 import com.ums.wifiprobe.ui.fragment.PassengerFlowTraFragment;
 
@@ -43,7 +43,7 @@ public class NewCustomerInfTaActivity extends BaseActivity implements View.OnCli
     @BindView(R.id.tab_main)
     SlidingTabLayout tabMain;
     @BindView(R.id.view_pager)
-    ViewPager viewPager;
+    ControlScrollViewPager viewPager;
     private List<Fragment> list_fragment;                                //定义要装fragment的列表
     private List<String> list_title;                                     //tab名称列表
     private PassengerFlowTraFragment passengerFlowTraFragment;
