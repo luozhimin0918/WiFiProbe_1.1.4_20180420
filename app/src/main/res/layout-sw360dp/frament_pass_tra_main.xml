@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F6F6"
+    android:background="@color/white"
     android:orientation="vertical">
     <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
         //时间
@@ -41,7 +41,7 @@
       <LinearLayout
             android:background="#FFDEDEDE"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"></LinearLayout>
+            android:layout_height="0.3dp"></LinearLayout>
         //交易金额All
       <LinearLayout
             android:paddingRight="10dp"
@@ -217,7 +217,7 @@
         <LinearLayout
             android:background="#FFDEDEDE"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"></LinearLayout>
+            android:layout_height="0.3dp"></LinearLayout>
 
         //客流数量All
         <LinearLayout
@@ -394,7 +394,7 @@
         <LinearLayout
             android:background="#FFDEDEDE"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"></LinearLayout>
+            android:layout_height="0.3dp"></LinearLayout>
         //客流单价All
         <LinearLayout
             android:paddingRight="10dp"
@@ -566,7 +566,7 @@
         <LinearLayout
             android:background="#FFDEDEDE"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"></LinearLayout>
+            android:layout_height="0.3dp"></LinearLayout>
         <LinearLayout
             android:background="@color/optionBgColor"
             android:layout_width="match_parent"
@@ -584,7 +584,7 @@
         <LinearLayout
             android:background="#FFDEDEDE"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"></LinearLayout>
+            android:layout_height="0.3dp"></LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"

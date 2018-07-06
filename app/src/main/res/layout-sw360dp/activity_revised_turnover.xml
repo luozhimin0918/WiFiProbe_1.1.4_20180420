@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f4f4f4"
+    android:background="@color/white"
     android:orientation="vertical">
    <LinearLayout
        android:id="@+id/status_bar"
@@ -47,7 +47,7 @@
    <View
        android:background="@color/changLinercolor"
        android:layout_width="match_parent"
-       android:layout_height="0.5dp" />
+       android:layout_height="0.3dp" />
    //修正交易数据
    <LinearLayout
        android:background="@color/OptionBgColorTo"
@@ -92,7 +92,7 @@
          android:layout_marginLeft="15dp"
          android:layout_marginRight="15dp"
           android:layout_width="match_parent"
-          android:layout_height="1dp"/>
+          android:layout_height="0.5dp"/>
       <LinearLayout
           android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
@@ -174,7 +174,7 @@
           android:layout_marginLeft="15dp"
           android:layout_marginRight="15dp"
           android:layout_width="match_parent"
-          android:layout_height="1dp"/>
+          android:layout_height="0.5dp"/>
       <LinearLayout
           android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
@@ -246,7 +246,7 @@
           android:layout_marginLeft="15dp"
           android:layout_marginRight="15dp"
           android:layout_width="match_parent"
-          android:layout_height="1dp"/>
+          android:layout_height="0.5dp"/>
       <LinearLayout
           android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
