@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.ums.wifiprobe.R;
+import com.ums.wifiprobe.aidl.TransDataModel;
 import com.ums.wifiprobe.ui.activity.RevisedTurnoverActivity;
 import com.ums.wifiprobe.ui.customview.EasyDialog;
 import com.ums.wifiprobe.utils.BarChartManager;
@@ -65,6 +67,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
 
 
     Context mContext;
+    TransDataModel mTransDataModel;
 
     @Nullable
     @Override
@@ -106,6 +109,9 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
                 }
             }
         });
+        mTransDataModel = new TransDataModel(getContext());
+        mTransDataModel.bind();
+        handler.sendEmptyMessageDelayed(55,2000);
     }
 
     private void initChart() {
@@ -257,6 +263,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        getContext().unbindService(mTransDataModel.mConnection);
     }
 
     @Override
@@ -305,7 +312,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     }
 
 
-    Handler handler = new Handler(){
+     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -319,7 +326,13 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
                 case 2:
                     Toast.makeText(getContext(),"本月",Toast.LENGTH_SHORT).show();
                     break;
+                case 55:
+                    List<Bundle>  dd =mTransDataModel.get();
 
+                    for(Bundle d:dd){
+                        Log.d("ppp",d.getString("transName")+"  "+d.getInt("transCount")+"  "+d.getString("transAmount")) ;
+                    }
+                    break;
             }
         }
     };
