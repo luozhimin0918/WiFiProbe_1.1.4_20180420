@@ -11,9 +11,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ums.wifiprobe.R;
+import com.ums.wifiprobe.eventbus.MessageEvent;
 import com.ums.wifiprobe.ui.customview.OnDialogCloseListener;
 import com.ums.wifiprobe.utils.DeviceUtil;
 import com.ums.wifiprobe.utils.DialogUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -93,6 +96,7 @@ public class RevisedTurnoverActivity extends BaseActivity implements View.OnClic
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ChangSubmit:
+                EventBus.getDefault().post(new MessageEvent("11,11111"));
                 //提醒从应用市场下载安装
                 DialogUtil.showCommonDialog2(this, "   亲爱的老板，您上次预估的修正幅度为30%，确定要将修正幅度改为-30%？", new OnDialogCloseListener() {
                     @Override

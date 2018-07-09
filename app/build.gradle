@@ -63,4 +63,5 @@ dependencies {
     compile project(':LibMarsdaemon')
     compile files('libs/umsanypaysdk.jar')
     implementation project(':FlycoTabLayout_Lib')
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

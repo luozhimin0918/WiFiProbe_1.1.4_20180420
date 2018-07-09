@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -27,9 +28,14 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.ums.wifiprobe.R;
 import com.ums.wifiprobe.aidl.TransDataModel;
+import com.ums.wifiprobe.eventbus.MessageEvent;
 import com.ums.wifiprobe.ui.activity.RevisedTurnoverActivity;
 import com.ums.wifiprobe.ui.customview.EasyDialog;
 import com.ums.wifiprobe.utils.BarChartManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -62,6 +68,8 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     RadioButton radioMonth;
     @BindView(R.id.radioGroup)
     RadioGroup radioGroup;
+    @BindView(R.id.xiuzhenTariMoney)
+    TextView xiuzhenTariMoney;
     private View view;
     private final static String[] weekDays = new String[]{"12-01", "12-02", "12-03", "12-04", "12-05", "12-06", "12-07"};
 
@@ -77,6 +85,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
             mRootView = new WeakReference<View>(view);
             mContext = getContext();
             ButterKnife.bind(this, view);
+            EventBus.getDefault().register(this);
             initData();
             initChart();
         } else {
@@ -111,7 +120,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         });
         mTransDataModel = new TransDataModel(getContext());
         mTransDataModel.bind();
-        handler.sendEmptyMessageDelayed(55,2000);
+//        handler.sendEmptyMessageDelayed(55,2000);
     }
 
     private void initChart() {
@@ -264,14 +273,22 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         super.onDestroyView();
         unbinder.unbind();
         getContext().unbindService(mTransDataModel.mConnection);
+        if(EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageEvent messageEvent) {
+        xiuzhenTariMoney.setText(messageEvent.getMessage());
+    }
+
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
         if (e == null)
             return;
         // 设置x轴的LimitLine，index是从0开始的
-        LimitLine xLimitLine = new LimitLine(e.getX(), ""+(int)e.getX());
+        LimitLine xLimitLine = new LimitLine(e.getX(), "" + (int) e.getX());
         xLimitLine.setLineColor(ColorTemplate.rgb("#000000"));
         xLimitLine.setLineWidth(1f);
         XAxis xAxis = chartBarMulp.getXAxis();
@@ -312,25 +329,25 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     }
 
 
-     Handler handler = new Handler(){
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
-                    Toast.makeText(getContext(),"今日",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "今日", Toast.LENGTH_SHORT).show();
                     break;
                 case 1:
-                    Toast.makeText(getContext(),"本周",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "本周", Toast.LENGTH_SHORT).show();
                     break;
                 case 2:
-                    Toast.makeText(getContext(),"本月",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "本月", Toast.LENGTH_SHORT).show();
                     break;
                 case 55:
-                    List<Bundle>  dd =mTransDataModel.get();
+                    List<Bundle> dd = mTransDataModel.get();
 
-                    for(Bundle d:dd){
-                        Log.d("ppp",d.getString("transName")+"  "+d.getInt("transCount")+"  "+d.getString("transAmount")) ;
+                    for (Bundle d : dd) {
+                        Log.d("ppp", d.getString("transName") + "  " + d.getInt("transCount") + "  " + d.getString("transAmount"));
                     }
                     break;
             }
