@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -43,6 +44,14 @@ public class RevisedTurnoverActivity extends BaseActivity implements View.OnClic
     EditText editQueryMianji;
     @BindView(R.id.head_back)
     LinearLayout headBack;
+    @BindView(R.id.moneyZong)
+    TextView moneyZong;
+    @BindView(R.id.xiuzhenNumStr)
+    TextView xiuzhenNumStr;
+    @BindView(R.id.xiuzhenBulieStr)
+    TextView xiuzhenBulieStr;
+    @BindView(R.id.zhandiMianji)
+    TextView zhandiMianji;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,8 +76,25 @@ public class RevisedTurnoverActivity extends BaseActivity implements View.OnClic
 
     }
 
+    String MoneyZong;
+    String XiuzhenNumStr;
+    String XiuzhenBulieStr;
+    String ZhandiMianji;
+
     @Override
     public void initData() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            MoneyZong = intent.getFloatExtra("moneyZong",0f)+"";
+            XiuzhenNumStr = intent.getStringExtra("xiuzhenNumStr");
+            XiuzhenBulieStr = intent.getStringExtra("xiuzhenBulieStr");
+            ZhandiMianji = intent.getStringExtra("zhandiMianji");
+            Log.d("MMM",MoneyZong+" "+XiuzhenNumStr+" "+XiuzhenBulieStr+"  "+ZhandiMianji);
+            moneyZong.setText(MoneyZong);
+            xiuzhenNumStr.setText(XiuzhenNumStr);
+            xiuzhenBulieStr.setText(XiuzhenBulieStr+"%");
+            zhandiMianji.setText(ZhandiMianji+"㎡");
+        }
     }
 
     @Override
@@ -92,21 +118,21 @@ public class RevisedTurnoverActivity extends BaseActivity implements View.OnClic
 
     }
 
-    @OnClick({R.id.ChangSubmit,R.id.head_back})
+    @OnClick({R.id.ChangSubmit, R.id.head_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ChangSubmit:
-                String editQueryStr =editQuery.getText().toString();
-                String editQueryBilieStr =editQueryBilie.getText().toString();
-                String editQueryMianjiStr =editQueryMianji.getText().toString();
-                if(editQueryStr!=null&&!editQueryStr.equals("")){
-                    EventBus.getDefault().post(new MessageEvent(editQueryStr,null,null));
+                String editQueryStr = editQuery.getText().toString();
+                String editQueryBilieStr = editQueryBilie.getText().toString();
+                String editQueryMianjiStr = editQueryMianji.getText().toString();
+                if (editQueryStr != null && !editQueryStr.equals("")) {
+                    EventBus.getDefault().post(new MessageEvent(editQueryStr, null, null));
                 }
-                if(editQueryBilieStr!=null&&!editQueryBilieStr.equals("")){
-                    EventBus.getDefault().post(new MessageEvent(null,editQueryBilieStr,null));
+                if (editQueryBilieStr != null && !editQueryBilieStr.equals("")) {
+                    EventBus.getDefault().post(new MessageEvent(null, editQueryBilieStr, null));
                 }
-                if(editQueryMianjiStr!=null&&!editQueryMianjiStr.equals("")){
-                    EventBus.getDefault().post(new MessageEvent(null,null,editQueryMianjiStr));
+                if (editQueryMianjiStr != null && !editQueryMianjiStr.equals("")) {
+                    EventBus.getDefault().post(new MessageEvent(null, null, editQueryMianjiStr));
                 }
 
                 //提醒从应用市场下载安装

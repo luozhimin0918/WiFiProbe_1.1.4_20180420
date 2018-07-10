@@ -87,8 +87,11 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     private View view;
     private final static String[] weekDays = new String[]{"12-01", "12-02", "12-03", "12-04", "12-05", "12-06", "12-07"};
 
-    float moneyZong = 0f;
-    int keliuNumInt=0;
+    float moneyZong = 0f;//交易金额
+    int keliuNumInt=0;//客流数量
+    String   xiuzhenNumStr="";//修正交易金额
+    String xiuzhenBulieStr="";//修正比例
+    String zhandiMianji="";//占地面积
     Context mContext;
     TransDataModel mTransDataModel;
 
@@ -297,21 +300,22 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     public void BackGroundEvent(MessageEvent messageEvent) {
 
     }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
         if (messageEvent != null) {
             if (messageEvent.getEditQuery() != null && !messageEvent.getEditQuery().equals("")) {
                 xiuzhenTariMoney.setText(messageEvent.getEditQuery());
-
+                xiuzhenNumStr= messageEvent.getEditQuery();
                 float editQuertInt =Float.parseFloat(messageEvent.getEditQuery());
                 xiuzhenKeliuPrice.setText(editQuertInt/keliuNumInt+"");
             }
             if (messageEvent.getEditQueryBilie() != null && !messageEvent.getEditQueryBilie().equals("")) {
                 xiuzhenBili.setText(messageEvent.getEditQueryBilie());
+                xiuzhenBulieStr=messageEvent.getEditQueryBilie();
             }
             if (messageEvent.getEditQueryMianji() != null && !messageEvent.getEditQueryMianji().equals("")) {
                 shanpuMianji.setText(messageEvent.getEditQueryMianji());
+                zhandiMianji=messageEvent.getEditQueryMianji();
                 //商铺坪效
                 int mianji =Integer.parseInt(messageEvent.getEditQueryMianji());
                 shanPuPinxiao.setText((moneyZong/mianji)+"");
@@ -350,6 +354,10 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         switch (view.getId()) {
             case R.id.chang_Tari_button:
                 Intent intent = new Intent(getContext(), RevisedTurnoverActivity.class);
+                intent.putExtra("xiuzhenNumStr",xiuzhenNumStr);
+                intent.putExtra("moneyZong",moneyZong);
+                intent.putExtra("xiuzhenBulieStr",xiuzhenBulieStr);
+                intent.putExtra("zhandiMianji",zhandiMianji);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.activity_anim3, R.anim.activity_out1);
                 break;
@@ -398,6 +406,9 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
                      keliuNumInt=Integer.parseInt(keliuNum.getText().toString());
 
                     keliuPrice.setText( (moneyZong/keliuNumInt)+"");
+                    xiuzhenBulieStr=xiuzhenBili.getText().toString();
+                    xiuzhenNumStr=xiuzhenTariMoney.getText().toString();
+                    zhandiMianji=shanpuMianji.getText().toString();
                     break;
             }
         }
