@@ -96,7 +96,19 @@ public class RevisedTurnoverActivity extends BaseActivity implements View.OnClic
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ChangSubmit:
-                EventBus.getDefault().post(new MessageEvent("11,11111"));
+                String editQueryStr =editQuery.getText().toString();
+                String editQueryBilieStr =editQueryBilie.getText().toString();
+                String editQueryMianjiStr =editQueryMianji.getText().toString();
+                if(editQueryStr!=null&&!editQueryStr.equals("")){
+                    EventBus.getDefault().post(new MessageEvent(editQueryStr,null,null));
+                }
+                if(editQueryBilieStr!=null&&!editQueryBilieStr.equals("")){
+                    EventBus.getDefault().post(new MessageEvent(null,editQueryBilieStr,null));
+                }
+                if(editQueryMianjiStr!=null&&!editQueryMianjiStr.equals("")){
+                    EventBus.getDefault().post(new MessageEvent(null,null,editQueryMianjiStr));
+                }
+
                 //提醒从应用市场下载安装
                 DialogUtil.showCommonDialog2(this, "   亲爱的老板，您上次预估的修正幅度为30%，确定要将修正幅度改为-30%？", new OnDialogCloseListener() {
                     @Override

@@ -86,6 +86,7 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                       <TextView
+                          android:id="@+id/tariMoneyZong"
                           android:layout_weight="1"
                           android:text="124,382"
                           android:textColor="@color/normalTextColor"
@@ -194,6 +195,7 @@
                           android:layout_height="wrap_content" />
                   </LinearLayout>
                   <TextView
+                      android:id="@+id/xiuzhenBili"
                       android:layout_weight="1"
                       android:text="+35%"
                       android:textColor="@color/normalTextColor"
@@ -320,6 +322,7 @@
 
                     </LinearLayout>
                     <TextView
+                        android:id="@+id/shanpuMianji"
                         android:layout_weight="1"
                         android:text="24m2"
                         android:textColor="@color/normalTextColor"

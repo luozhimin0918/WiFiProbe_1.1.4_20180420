@@ -70,6 +70,12 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     RadioGroup radioGroup;
     @BindView(R.id.xiuzhenTariMoney)
     TextView xiuzhenTariMoney;
+    @BindView(R.id.xiuzhenBili)
+    TextView xiuzhenBili;
+    @BindView(R.id.shanpuMianji)
+    TextView shanpuMianji;
+    @BindView(R.id.tariMoneyZong)
+    TextView tariMoneyZong;
     private View view;
     private final static String[] weekDays = new String[]{"12-01", "12-02", "12-03", "12-04", "12-05", "12-06", "12-07"};
 
@@ -120,7 +126,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         });
         mTransDataModel = new TransDataModel(getContext());
         mTransDataModel.bind();
-//        handler.sendEmptyMessageDelayed(55,2000);
+        handler.sendEmptyMessageDelayed(55,1000);
     }
 
     private void initChart() {
@@ -277,9 +283,27 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
             EventBus.getDefault().unregister(this);
         }
     }
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void BackGroundEvent(MessageEvent messageEvent) {
+
+    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
-        xiuzhenTariMoney.setText(messageEvent.getMessage());
+        if(messageEvent!=null){
+            if(messageEvent.getEditQuery()!=null&&!messageEvent.getEditQuery().equals("")){
+                xiuzhenTariMoney.setText(messageEvent.getEditQuery());
+            }
+            if(messageEvent.getEditQueryBilie()!=null&&!messageEvent.getEditQueryBilie().equals("")){
+                xiuzhenBili.setText(messageEvent.getEditQueryBilie());
+            }
+            if(messageEvent.getEditQueryMianji()!=null&&!messageEvent.getEditQueryMianji().equals("")){
+                shanpuMianji.setText(messageEvent.getEditQueryMianji());
+            }
+
+
+        }
+
+
     }
 
 
@@ -346,9 +370,12 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
                 case 55:
                     List<Bundle> dd = mTransDataModel.get();
 
+                    float moneyZong=0f;
                     for (Bundle d : dd) {
-                        Log.d("ppp", d.getString("transName") + "  " + d.getInt("transCount") + "  " + d.getString("transAmount"));
+                        moneyZong+=Float.parseFloat(d.getString("transAmount"));
+                        Log.d("ppp", moneyZong+"   "+d.getString("transName") + "  " + d.getInt("transCount") + "  " + d.getString("transAmount"));
                     }
+                    tariMoneyZong.setText(moneyZong+"");
                     break;
             }
         }
