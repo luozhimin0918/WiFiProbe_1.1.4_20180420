@@ -76,10 +76,19 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     TextView shanpuMianji;
     @BindView(R.id.tariMoneyZong)
     TextView tariMoneyZong;
+    @BindView(R.id.keliuNum)
+    TextView keliuNum;
+    @BindView(R.id.shanPuPinxiao)
+    TextView shanPuPinxiao;
+    @BindView(R.id.keliuPrice)
+    TextView keliuPrice;
+    @BindView(R.id.xiuzhenKeliuPrice)
+    TextView xiuzhenKeliuPrice;
     private View view;
     private final static String[] weekDays = new String[]{"12-01", "12-02", "12-03", "12-04", "12-05", "12-06", "12-07"};
 
-
+    float moneyZong = 0f;
+    int keliuNumInt=0;
     Context mContext;
     TransDataModel mTransDataModel;
 
@@ -126,7 +135,7 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         });
         mTransDataModel = new TransDataModel(getContext());
         mTransDataModel.bind();
-        handler.sendEmptyMessageDelayed(55,1000);
+        handler.sendEmptyMessageDelayed(55, 1000);
     }
 
     private void initChart() {
@@ -279,25 +288,34 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         super.onDestroyView();
         unbinder.unbind();
         getContext().unbindService(mTransDataModel.mConnection);
-        if(EventBus.getDefault().isRegistered(this)) {
+        if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
     }
+
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void BackGroundEvent(MessageEvent messageEvent) {
 
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
-        if(messageEvent!=null){
-            if(messageEvent.getEditQuery()!=null&&!messageEvent.getEditQuery().equals("")){
+        if (messageEvent != null) {
+            if (messageEvent.getEditQuery() != null && !messageEvent.getEditQuery().equals("")) {
                 xiuzhenTariMoney.setText(messageEvent.getEditQuery());
+
+                float editQuertInt =Float.parseFloat(messageEvent.getEditQuery());
+                xiuzhenKeliuPrice.setText(editQuertInt/keliuNumInt+"");
             }
-            if(messageEvent.getEditQueryBilie()!=null&&!messageEvent.getEditQueryBilie().equals("")){
+            if (messageEvent.getEditQueryBilie() != null && !messageEvent.getEditQueryBilie().equals("")) {
                 xiuzhenBili.setText(messageEvent.getEditQueryBilie());
             }
-            if(messageEvent.getEditQueryMianji()!=null&&!messageEvent.getEditQueryMianji().equals("")){
+            if (messageEvent.getEditQueryMianji() != null && !messageEvent.getEditQueryMianji().equals("")) {
                 shanpuMianji.setText(messageEvent.getEditQueryMianji());
+                //商铺坪效
+                int mianji =Integer.parseInt(messageEvent.getEditQueryMianji());
+                shanPuPinxiao.setText((moneyZong/mianji)+"");
+
             }
 
 
@@ -370,12 +388,16 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
                 case 55:
                     List<Bundle> dd = mTransDataModel.get();
 
-                    float moneyZong=0f;
+                    moneyZong=0f;
                     for (Bundle d : dd) {
-                        moneyZong+=Float.parseFloat(d.getString("transAmount"));
-                        Log.d("ppp", moneyZong+"   "+d.getString("transName") + "  " + d.getInt("transCount") + "  " + d.getString("transAmount"));
+                        moneyZong += Float.parseFloat(d.getString("transAmount"));
+                        Log.d("ppp", moneyZong + "   " + d.getString("transName") + "  " + d.getInt("transCount") + "  " + d.getString("transAmount"));
                     }
-                    tariMoneyZong.setText(moneyZong+"");
+                    tariMoneyZong.setText(moneyZong + "");
+                    //客流单价
+                     keliuNumInt=Integer.parseInt(keliuNum.getText().toString());
+
+                    keliuPrice.setText( (moneyZong/keliuNumInt)+"");
                     break;
             }
         }
