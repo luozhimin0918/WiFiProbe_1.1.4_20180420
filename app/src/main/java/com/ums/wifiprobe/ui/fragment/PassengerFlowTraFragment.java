@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -30,6 +31,7 @@ import com.ums.wifiprobe.R;
 import com.ums.wifiprobe.aidl.TransDataModel;
 import com.ums.wifiprobe.eventbus.MessageEvent;
 import com.ums.wifiprobe.ui.activity.RevisedTurnoverActivity;
+import com.ums.wifiprobe.ui.customview.DoubleDatePickerDialog;
 import com.ums.wifiprobe.ui.customview.EasyDialog;
 import com.ums.wifiprobe.utils.BarChartManager;
 
@@ -39,6 +41,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -84,14 +87,16 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     TextView keliuPrice;
     @BindView(R.id.xiuzhenKeliuPrice)
     TextView xiuzhenKeliuPrice;
+    @BindView(R.id.dateDoubleSelect)
+    TextView dateDoubleSelect;
     private View view;
     private final static String[] weekDays = new String[]{"12-01", "12-02", "12-03", "12-04", "12-05", "12-06", "12-07"};
 
     float moneyZong = 0f;//交易金额
-    int keliuNumInt=0;//客流数量
-    String   xiuzhenNumStr="";//修正交易金额
-    String xiuzhenBulieStr="";//修正比例
-    String zhandiMianji="";//占地面积
+    int keliuNumInt = 0;//客流数量
+    String xiuzhenNumStr = "";//修正交易金额
+    String xiuzhenBulieStr = "";//修正比例
+    String zhandiMianji = "";//占地面积
     Context mContext;
     TransDataModel mTransDataModel;
 
@@ -139,6 +144,24 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         mTransDataModel = new TransDataModel(getContext());
         mTransDataModel.bind();
         handler.sendEmptyMessageDelayed(55, 1000);
+        dateDoubleSelect.setOnClickListener(new View.OnClickListener() {
+            Calendar c = Calendar.getInstance();
+            @Override
+            public void onClick(View view) {
+                // 最后一个false表示不显示日期，如果要显示日期，最后参数可以是true或者不用输入
+                new DoubleDatePickerDialog(getContext(), 0, new DoubleDatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker startDatePicker, int startYear, int startMonthOfYear,
+                                          int startDayOfMonth, DatePicker endDatePicker, int endYear, int endMonthOfYear,
+                                          int endDayOfMonth) {
+                        String textString = String.format("%d-%d-%d", startYear,
+                                startMonthOfYear + 1, startDayOfMonth, endYear, endMonthOfYear + 1, endDayOfMonth);
+                        dateDoubleSelect.setText(textString);
+                    }
+                }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), false).show();
+            }
+        });
     }
 
     private void initChart() {
@@ -300,25 +323,26 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
     public void BackGroundEvent(MessageEvent messageEvent) {
 
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
         if (messageEvent != null) {
             if (messageEvent.getEditQuery() != null && !messageEvent.getEditQuery().equals("")) {
                 xiuzhenTariMoney.setText(messageEvent.getEditQuery());
-                xiuzhenNumStr= messageEvent.getEditQuery();
-                float editQuertInt =Float.parseFloat(messageEvent.getEditQuery());
-                xiuzhenKeliuPrice.setText(editQuertInt/keliuNumInt+"");
+                xiuzhenNumStr = messageEvent.getEditQuery();
+                float editQuertInt = Float.parseFloat(messageEvent.getEditQuery());
+                xiuzhenKeliuPrice.setText(editQuertInt / keliuNumInt + "");
             }
             if (messageEvent.getEditQueryBilie() != null && !messageEvent.getEditQueryBilie().equals("")) {
                 xiuzhenBili.setText(messageEvent.getEditQueryBilie());
-                xiuzhenBulieStr=messageEvent.getEditQueryBilie();
+                xiuzhenBulieStr = messageEvent.getEditQueryBilie();
             }
             if (messageEvent.getEditQueryMianji() != null && !messageEvent.getEditQueryMianji().equals("")) {
                 shanpuMianji.setText(messageEvent.getEditQueryMianji());
-                zhandiMianji=messageEvent.getEditQueryMianji();
+                zhandiMianji = messageEvent.getEditQueryMianji();
                 //商铺坪效
-                int mianji =Integer.parseInt(messageEvent.getEditQueryMianji());
-                shanPuPinxiao.setText((moneyZong/mianji)+"");
+                int mianji = Integer.parseInt(messageEvent.getEditQueryMianji());
+                shanPuPinxiao.setText((moneyZong / mianji) + "");
 
             }
 
@@ -354,10 +378,10 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
         switch (view.getId()) {
             case R.id.chang_Tari_button:
                 Intent intent = new Intent(getContext(), RevisedTurnoverActivity.class);
-                intent.putExtra("xiuzhenNumStr",xiuzhenNumStr);
-                intent.putExtra("moneyZong",moneyZong);
-                intent.putExtra("xiuzhenBulieStr",xiuzhenBulieStr);
-                intent.putExtra("zhandiMianji",zhandiMianji);
+                intent.putExtra("xiuzhenNumStr", xiuzhenNumStr);
+                intent.putExtra("moneyZong", moneyZong);
+                intent.putExtra("xiuzhenBulieStr", xiuzhenBulieStr);
+                intent.putExtra("zhandiMianji", zhandiMianji);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.activity_anim3, R.anim.activity_out1);
                 break;
@@ -396,19 +420,19 @@ public class PassengerFlowTraFragment extends Fragment implements OnChartValueSe
                 case 55:
                     List<Bundle> dd = mTransDataModel.get();
 
-                    moneyZong=0f;
+                    moneyZong = 0f;
                     for (Bundle d : dd) {
                         moneyZong += Float.parseFloat(d.getString("transAmount"));
                         Log.d("ppp", moneyZong + "   " + d.getString("transName") + "  " + d.getInt("transCount") + "  " + d.getString("transAmount"));
                     }
                     tariMoneyZong.setText(moneyZong + "");
                     //客流单价
-                     keliuNumInt=Integer.parseInt(keliuNum.getText().toString());
+                    keliuNumInt = Integer.parseInt(keliuNum.getText().toString());
 
-                    keliuPrice.setText( (moneyZong/keliuNumInt)+"");
-                    xiuzhenBulieStr=xiuzhenBili.getText().toString();
-                    xiuzhenNumStr=xiuzhenTariMoney.getText().toString();
-                    zhandiMianji=shanpuMianji.getText().toString();
+                    keliuPrice.setText((moneyZong / keliuNumInt) + "");
+                    xiuzhenBulieStr = xiuzhenBili.getText().toString();
+                    xiuzhenNumStr = xiuzhenTariMoney.getText().toString();
+                    zhandiMianji = shanpuMianji.getText().toString();
                     break;
             }
         }
